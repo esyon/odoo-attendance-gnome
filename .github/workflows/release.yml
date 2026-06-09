@@ -1,0 +1,38 @@
+name: Release
+
+# Build the extension and publish a GitHub Release whenever a version tag is
+# pushed (e.g. `git tag v2.0.0 && git push origin v2.0.0`).
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+env:
+  UUID: odoo-attendance@esyon.de
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Install build tools
+        run: sudo apt-get update && sudo apt-get install -y libglib2.0-bin zip
+
+      - name: Pack the extension
+        run: |
+          glib-compile-schemas schemas/
+          zip -r "$UUID.shell-extension.zip" \
+            metadata.json extension.js prefs.js stylesheet.css lib schemas
+
+      - name: Publish release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" \
+            "$UUID.shell-extension.zip" \
+            --title "Odoo Attendance ${GITHUB_REF_NAME#v}" \
+            --generate-notes

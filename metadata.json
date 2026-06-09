@@ -6,5 +6,5 @@
   "settings-schema": "org.gnome.shell.extensions.odoo-attendance",
   "gettext-domain": "odoo-attendance",
   "url": "https://github.com/esyon/odoo-attendance-gnome",
-  "version": 1
+  "version-name": "2.0.0"
 }

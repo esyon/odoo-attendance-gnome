@@ -49,7 +49,6 @@ class OdooAttendanceIndicator extends PanelMenu.Button {
         this._refreshing = false;
         this._timerId = 0;
         this._cancellable = new Gio.Cancellable();
-        this._destroyed = false;
         this._reloadGen = 0;
 
         // --- panel button ---
@@ -181,7 +180,7 @@ class OdooAttendanceIndicator extends PanelMenu.Button {
         // Bail out if we were disabled or superseded by a newer reload while
         // the async keyring lookup was in flight — otherwise we would re-arm
         // the timer and re-create the client after destroy().
-        if (this._destroyed || gen !== this._reloadGen)
+        if (this._cancellable.is_cancelled() || gen !== this._reloadGen)
             return;
 
         if (this._baseUrl && this._apiKey)
@@ -192,7 +191,7 @@ class OdooAttendanceIndicator extends PanelMenu.Button {
     }
 
     _restartTimer() {
-        if (this._destroyed)
+        if (this._cancellable.is_cancelled())
             return;
         if (this._timerId) {
             GLib.source_remove(this._timerId);
@@ -211,7 +210,7 @@ class OdooAttendanceIndicator extends PanelMenu.Button {
     }
 
     async _refresh() {
-        if (this._destroyed || this._refreshing)
+        if (this._cancellable.is_cancelled() || this._refreshing)
             return;
         if (!this._isConfigured()) {
             this._renderUnconfigured();
@@ -223,7 +222,7 @@ class OdooAttendanceIndicator extends PanelMenu.Button {
                 this._client.getOpenAttendance(this._uid, this._cancellable),
                 this._client.getTodayRecords(this._uid, this._cancellable),
             ]);
-            if (this._destroyed)
+            if (this._cancellable.is_cancelled())
                 return;
             this._openAttendance = open;
             this._checkedIn = !!open;
@@ -305,7 +304,7 @@ class OdooAttendanceIndicator extends PanelMenu.Button {
     }
 
     async _onToggle() {
-        if (this._busy || this._destroyed || !this._isConfigured())
+        if (this._busy || this._cancellable.is_cancelled() || !this._isConfigured())
             return;
         this._busy = true;
         this._toggleItem.reactive = false;
@@ -329,7 +328,7 @@ class OdooAttendanceIndicator extends PanelMenu.Button {
             }
         } catch (e) {
             // Disabled mid-request: the cancellable fired. Don't toast/log.
-            if (this._destroyed ||
+            if (this._cancellable.is_cancelled() ||
                 e?.matches?.(Gio.IOErrorEnum, Gio.IOErrorEnum.CANCELLED))
                 return;
             Main.notifyError(_('Odoo Attendance'),
@@ -337,12 +336,12 @@ class OdooAttendanceIndicator extends PanelMenu.Button {
             logError(e, 'odoo-attendance: toggle failed');
         } finally {
             this._busy = false;
-            await this._refresh(); // self-guards on _destroyed
+            await this._refresh(); // self-guards on the cancellable
         }
     }
 
     destroy() {
-        this._destroyed = true;
+        this._cancellable.cancel();
         if (this._timerId) {
             GLib.source_remove(this._timerId);
             this._timerId = 0;
@@ -355,7 +354,6 @@ class OdooAttendanceIndicator extends PanelMenu.Button {
             this.menu.disconnect(this._openStateId);
             this._openStateId = 0;
         }
-        this._cancellable?.cancel();
         this._client?.destroy();
         this._client = null;
         super.destroy();
@@ -371,5 +369,6 @@ export default class OdooAttendanceExtension extends Extension {
     disable() {
         this._indicator?.destroy();
         this._indicator = null;
+        Secrets.destroy();
     }
 }

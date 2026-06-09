@@ -66,11 +66,7 @@ ln -sfn "$PWD" ~/.local/share/gnome-shell/extensions/odoo-attendance@esyon.de
 
 Then load the extension:
 
-- **Wayland:** log out and back in (the shell can't hot-reload extensions). To test without
-  logging out, run a nested session:
-  ```sh
-  dbus-run-session -- gnome-shell --nested --wayland
-  ```
+- **Wayland:** log out and back in (the shell can't hot-reload extensions).
 - **X11:** press `Alt`+`F2`, type `r`, press `Enter`.
 
 Finally enable it:
@@ -142,6 +138,17 @@ Build a release archive with the GNOME tooling:
 ```sh
 gnome-extensions pack --force --extra-source=lib
 # → odoo-attendance@esyon.de.shell-extension.zip
+```
+
+### Releasing
+
+Pushing a version tag builds the archive and publishes a GitHub Release
+automatically (see `.github/workflows/release.yml`):
+
+```sh
+# bump "version-name" in metadata.json first, then:
+git tag v2.0.0
+git push origin v2.0.0
 ```
 
 ## Compatibility
