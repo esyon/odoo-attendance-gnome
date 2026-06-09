@@ -1,0 +1,10 @@
+# Build artifacts
+/schemas/gschemas.compiled
+*.shell-extension.zip
+*.zip
+
+# Local tooling / editor settings
+/.claude/
+*.swp
+*~
+.DS_Store

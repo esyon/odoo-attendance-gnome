@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+  <schema id="org.gnome.shell.extensions.odoo-attendance"
+          path="/org/gnome/shell/extensions/odoo-attendance/">
+    <key name="base-url" type="s">
+      <default>''</default>
+      <summary>Odoo base URL</summary>
+      <description>Base URL of the Odoo instance (e.g. https://odoo.example.com), without trailing slash.</description>
+    </key>
+    <key name="login-email" type="s">
+      <default>''</default>
+      <summary>Odoo login (email)</summary>
+      <description>The login used to resolve the user and employee id.</description>
+    </key>
+    <key name="user-id" type="i">
+      <default>0</default>
+      <summary>Cached Odoo user id</summary>
+      <description>Resolved res.users id for the configured login. Used to scope attendance reads to your own records. 0 means unresolved.</description>
+    </key>
+    <key name="employee-id" type="i">
+      <default>0</default>
+      <summary>Cached employee id</summary>
+      <description>Resolved hr.employee id for the configured login. Used when creating a check-in. 0 means unresolved.</description>
+    </key>
+    <key name="refresh-interval" type="i">
+      <default>60</default>
+      <range min="15" max="3600"/>
+      <summary>Refresh interval (seconds)</summary>
+      <description>How often the panel status is refreshed from Odoo.</description>
+    </key>
+    <key name="show-hours-label" type="b">
+      <default>true</default>
+      <summary>Show hours label in panel</summary>
+      <description>Display today's worked hours next to the panel icon.</description>
+    </key>
+  </schema>
+</schemalist>

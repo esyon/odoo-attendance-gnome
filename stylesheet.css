@@ -1,0 +1,27 @@
+.odoo-panel-label {
+    font-feature-settings: "tnum";
+    margin-left: 4px;
+}
+
+.system-status-icon.odoo-in {
+    color: #2ec27e; /* GNOME green: checked in */
+}
+
+.system-status-icon.odoo-out {
+    opacity: 0.85;
+}
+
+.odoo-header {
+    font-weight: bold;
+}
+
+.odoo-subheader {
+    font-weight: bold;
+    opacity: 0.75;
+}
+
+.odoo-record {
+    font-feature-settings: "tnum";
+    padding-left: 1.2em;
+    opacity: 0.9;
+}
