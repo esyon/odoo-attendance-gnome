@@ -5,6 +5,7 @@ A GNOME Shell panel indicator that shows your Odoo **`hr.attendance`** status an
 today's records. It talks to Odoo 19's **JSON-2 API** and keeps your API key in the system
 keyring.
 
+[![Get it on extensions.gnome.org](https://img.shields.io/badge/extensions.gnome.org-Odoo%20Attendance-4A86CF?logo=gnome&logoColor=white)](https://extensions.gnome.org/extension/10117/odoo-attendance/)
 ![GNOME Shell](https://img.shields.io/badge/GNOME%20Shell-45–50-4A86CF?logo=gnome&logoColor=white)
 ![License](https://img.shields.io/badge/License-GPL--2.0--or--later-blue)
 ![GJS](https://img.shields.io/badge/GJS-ESM-f5c211)
@@ -39,7 +40,18 @@ next to it.
 
 ## Install
 
-### From source
+> **Most users should install from [extensions.gnome.org](https://extensions.gnome.org/extension/10117/odoo-attendance/)** — it installs in a click and updates automatically. The source and release-archive methods below are mainly for development or offline installs.
+
+### From extensions.gnome.org (recommended)
+
+No terminal required. Use either:
+
+- **[Extension Manager](https://flathub.org/apps/com.mattjakeman.ExtensionManager)** (Flatpak app): open it, search for *Odoo Attendance*, and click **Install**. *(Simplest — no browser setup needed.)*
+- **Browser:** open the **[Odoo Attendance page](https://extensions.gnome.org/extension/10117/odoo-attendance/)** and flip the toggle to **On**. This needs the GNOME Shell browser extension and its native host; the page prompts you if they're missing.
+
+Either way, GNOME then keeps the extension updated automatically. Continue with [Configure](#configure).
+
+### From source (for development)
 
 ```sh
 git clone https://github.com/esyon/odoo-attendance-gnome.git
