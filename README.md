@@ -6,6 +6,7 @@ today's records. It talks to Odoo 19's **JSON-2 API** and keeps your API key in 
 keyring.
 
 [![Get it on extensions.gnome.org](https://img.shields.io/badge/extensions.gnome.org-Odoo%20Attendance-4A86CF?logo=gnome&logoColor=white)](https://extensions.gnome.org/extension/10117/odoo-attendance/)
+[![EGO downloads](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fextensions.gnome.org%2Fextension-info%2F%3Fpk%3D10117&query=%24.downloads&label=downloads&logo=gnome&logoColor=white&color=4A86CF)](https://extensions.gnome.org/extension/10117/odoo-attendance/)
 ![GNOME Shell](https://img.shields.io/badge/GNOME%20Shell-45–50-4A86CF?logo=gnome&logoColor=white)
 ![License](https://img.shields.io/badge/License-GPL--2.0--or--later-blue)
 ![GJS](https://img.shields.io/badge/GJS-ESM-f5c211)
