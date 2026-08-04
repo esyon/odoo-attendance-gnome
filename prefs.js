@@ -105,9 +105,20 @@ export default class OdooAttendancePreferences extends ExtensionPreferences {
         window.connect('close-request', () => {
             const url = urlRow.text.trim();
             const key = keyRow.text.trim();
-            if (url && key)
-                Secrets.storeKey(url, key).catch(
-                    e => logError(e, 'odoo-attendance prefs: store on close'));
+            if (url && key) {
+                // Persist first, then bump the revision counter, so the
+                // indicator's keyring lookup is guaranteed to find the new
+                // value (fixes issue #1).
+                Secrets.storeKey(url, key)
+                    .then(() => this._bumpRevision(settings))
+                    .catch(e => {
+                        logError(e, 'odoo-attendance prefs: store on close');
+                        // Still bump — the user may have fixed a transient
+                        // libsecret failure and we'd rather retry a cheap
+                        // keyring lookup than appear frozen.
+                        this._bumpRevision(settings);
+                    });
+            }
             return false;
         });
     }
@@ -146,12 +157,29 @@ export default class OdooAttendancePreferences extends ExtensionPreferences {
             settings.set_int('user-id', user.id);
             settings.set_int('employee-id', emp.id);
             empLabel.label = String(emp.id);
+            // Nudge any running indicator so it re-reads the keyring right away
+            // — fixes https://github.com/esyon/odoo-attendance-gnome/issues/1.
+            this._bumpRevision(settings);
             this._toast(window,
                 _('Connected as %s (employee #%d).').format(emp.name, emp.id));
         } finally {
             client.destroy();
             testBtn.sensitive = true;
             testBtn.label = _('Test');
+        }
+    }
+
+    // Bump the cross-process "I just changed credentials" counter. The
+    // indicator listens for it and re-reads the keyring, so users no longer
+    // have to disable+enable the extension after a fresh setup.
+    _bumpRevision(settings) {
+        try {
+            settings.set_int('config-revision',
+                settings.get_int('config-revision') + 1);
+        } catch (e) {
+            // Schema may not be migrated yet on first enable; not fatal —
+            // the next close-request bump will catch it.
+            logError(e, 'odoo-attendance prefs: bump config-revision');
         }
     }
 

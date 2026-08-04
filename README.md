@@ -109,6 +109,7 @@ gnome-extensions prefs odoo-attendance@esyon.de
 | `employee-id` | int | Cached `hr.employee` id (resolved by **Test**). |
 | `refresh-interval` | int | Panel refresh interval in seconds (15–3600). |
 | `show-hours-label` | bool | Show today's worked hours next to the panel icon. |
+| `config-revision` | int | Internal counter bumped by the preferences window when credentials are saved, so the live panel re-reads the keyring without needing a disable+enable cycle. Not user-facing. |
 
 ## How it works
 

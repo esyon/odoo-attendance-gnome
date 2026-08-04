@@ -140,9 +140,17 @@ class OdooAttendanceIndicator extends PanelMenu.Button {
     // React to a single settings key. Only a base-url change needs a fresh
     // keyring lookup + new client; the other keys are cheap, so we avoid a
     // keyring round-trip on every keystroke while editing in the prefs window.
+    //
+    // `config-revision` is bumped by the prefs window whenever credentials in
+    // the keyring (or other config-affecting inputs) change while the
+    // indicator is already running. Without this signal the indicator would
+    // keep using the stale (empty) API key it looked up on enable() and the
+    // user would have to disable+enable the extension to "kick" it — see
+    // https://github.com/esyon/odoo-attendance-gnome/issues/1.
     _onSettingChanged(key) {
         switch (key) {
         case 'base-url':
+        case 'config-revision':
             this._reloadConfig();
             break;
         case 'refresh-interval':

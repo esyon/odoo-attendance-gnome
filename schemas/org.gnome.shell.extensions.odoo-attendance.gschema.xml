@@ -33,5 +33,15 @@
       <summary>Show hours label in panel</summary>
       <description>Display today's worked hours next to the panel icon.</description>
     </key>
+    <key name="config-revision" type="i">
+      <default>0</default>
+      <range min="0"/>
+      <summary>Configuration revision counter</summary>
+      <description>
+        Bumped by the preferences window when a credential change (URL, login,
+        API key in the keyring) happens that should make the running indicator
+        re-read the keyring. Not user-facing.
+      </description>
+    </key>
   </schema>
 </schemalist>
