@@ -7,7 +7,7 @@ keyring.
 
 [![Get it on extensions.gnome.org](https://img.shields.io/badge/extensions.gnome.org-Odoo%20Attendance-4A86CF?logo=gnome&logoColor=white)](https://extensions.gnome.org/extension/10117/odoo-attendance/)
 [![EGO downloads](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fextensions.gnome.org%2Fextension-info%2F%3Fpk%3D10117&query=%24.downloads&label=downloads&logo=gnome&logoColor=white&color=4A86CF)](https://extensions.gnome.org/extension/10117/odoo-attendance/)
-![GNOME Shell](https://img.shields.io/badge/GNOME%20Shell-45–50-4A86CF?logo=gnome&logoColor=white)
+![GNOME Shell](https://img.shields.io/badge/GNOME%20Shell-45–51-4A86CF?logo=gnome&logoColor=white)
 ![License](https://img.shields.io/badge/License-GPL--2.0--or--later-blue)
 ![GJS](https://img.shields.io/badge/GJS-ESM-f5c211)
 
@@ -32,8 +32,8 @@ next to it.
 
 ## Requirements
 
-- **GNOME Shell 45 – 50** (uses the modern ESM extension API and libadwaita ≥ 1.4).
-  Developed and tested on **GNOME Shell 50**.
+- **GNOME Shell 45 – 51** (uses the modern ESM extension API and libadwaita ≥ 1.4).
+  Developed on GNOME Shell 50, tested on **GNOME Shell 50 and 51**.
 - **libsecret** typelib (`gir1.2-secret-1` / `libsecret`) — ships with GNOME by default.
 - An **Odoo 19** instance reachable over HTTPS, with the **JSON-2 API** enabled.
 - A personal **Odoo API key** (Odoo → *Preferences → Account Security → New API Key*) for an
@@ -156,6 +156,7 @@ git push origin v2.0.0
 
 | GNOME Shell | Status |
 | --- | --- |
+| 51 | ✅ Tested |
 | 50 | ✅ Tested |
 | 45 – 49 | Expected to work (same ESM API; not actively tested) |
 | ≤ 44 | ❌ Unsupported (pre-ESM extension API) |

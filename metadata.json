@@ -2,9 +2,9 @@
   "uuid": "odoo-attendance@esyon.de",
   "name": "Odoo Attendance",
   "description": "Clock in and out of Odoo hr.attendance from the GNOME panel, with a live status dashboard (hours today, last check-in, overtime, today's records).",
-  "shell-version": ["45", "46", "47", "48", "49", "50"],
+  "shell-version": ["45", "46", "47", "48", "49", "50", "51"],
   "settings-schema": "org.gnome.shell.extensions.odoo-attendance",
   "gettext-domain": "odoo-attendance",
   "url": "https://github.com/esyon/odoo-attendance-gnome",
-  "version-name": "2.0.0"
+  "version-name": "2.0.1"
 }
