@@ -82,6 +82,7 @@ export default class OdooAttendancePreferences extends ExtensionPreferences {
 
         const testRow = new Adw.ActionRow({
             title: _('Test connection & resolve employee'),
+            use_markup: false,
         });
         const testBtn = new Gtk.Button({
             label: _('Test'),
